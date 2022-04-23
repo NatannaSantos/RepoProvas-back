@@ -1,13 +1,20 @@
 {
   "name": "repoprovas-back",
-  "type":"module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NatannaSantos/RepoProvas-back.git"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NatannaSantos/RepoProvas-back/issues"
+  },
+  "homepage": "https://github.com/NatannaSantos/RepoProvas-back#readme"
 }

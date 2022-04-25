@@ -7,5 +7,6 @@ export async function getDisciplinesByTerms(req:Request, res:Response){
 }
 
 export async function getTestsByTeachers(req:Request, res:Response){
-   
+   const discipline = await testsService.getTestsByTeachers();
+   res.status(200).send(discipline);
 }

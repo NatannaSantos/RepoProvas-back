@@ -43,25 +43,37 @@ async function getDisciplinesByTerms() {
 }
 
 export async function getTestsByTeachers() {
-    await prisma.teacher.findMany({
-        select: {
-            name:true,
-            teacherDisciplines:{
-                include:{
-                    test:{
-                        include:{
-                            category:{
-                                
-                            }
+    return await prisma.teacher.findMany({
+    include:{
+        teacherDisciplines:{
+            include:{
+                test:{
+                    include:{
+                        category:{
+                            
+                         select:{
+                             name:true,
+                             test:{
+                                 select:{
+                                     teacherDiscipline:{
+                                         select:{
+                                             discipline:{
+                                                 select:{
+                                                     name:true
+                                                 }
+                                             }
+                                         }
+                                     }
+                                 }
+                             }
+                         }
                         }
                     }
                 }
             }
         }
-
     }
-
-    )
+})
 }
 
 

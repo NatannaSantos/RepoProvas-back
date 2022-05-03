@@ -37,9 +37,26 @@ async function getCategories(){
     return category
 }
 
+async function getDisciplines(){
+    const discipline = await testRepository.getDisciplines();
+    return discipline;
+}
+
+async function countViews(testId:number) {
+    const views = await testRepository.countViews(testId);
+    return views;
+}
+
+async function findTestById(testId:number){
+    const test = await testRepository.findTestById(testId);
+    return test;
+}
 export default{
     getDisciplinesByDisciplines,
     getTestsByTeachers,
     getCategories,
-    getDisciplinesByDisciplinesbyParams
+    getDisciplinesByDisciplinesbyParams,
+    getDisciplines,
+    countViews,
+    findTestById
     }

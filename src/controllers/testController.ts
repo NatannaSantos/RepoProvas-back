@@ -30,3 +30,18 @@ export async function getCategories(req:Request, res:Response){
    const category = await testsService.getCategories();
    res.status(200).send(category);
 }
+
+export async function getDiscipline(req:Request, res:Response){
+   const discipline = await testsService.getDisciplines();
+   res.status(200).send(discipline);
+}
+export async function countViews(req:Request, res:Response) {
+   const {id} = req.params;
+   const test = await testsService.findTestById(+id);
+   if(!test){
+      throw { type: "not_found" };
+   }
+
+   await testsService.countViews(+id);
+   res.sendStatus(200);   
+}

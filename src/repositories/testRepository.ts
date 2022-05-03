@@ -7,11 +7,11 @@ interface FindAllName {
         in: string[];
     };
 };
-interface FindAllTerm{
-    discipline?:{
-        some:{
-            name:{
-                in:string[];
+interface FindAllTerm {
+    discipline?: {
+        some: {
+            name: {
+                in: string[];
             }
         }
     }
@@ -34,13 +34,13 @@ async function getDisciplinesByTermsParams(filter: FilterParams) {
         include: {
             discipline: {
                 where: name,
-                include:{
-                    teacherDiscipline:{
-                        include:{
-                            teacher:true,
-                            test:{
-                                include:{
-                                    category:true
+                include: {
+                    teacherDiscipline: {
+                        include: {
+                            teacher: true,
+                            test: {
+                                include: {
+                                    category: true
                                 }
                             }
                         }
@@ -93,15 +93,15 @@ async function getDisciplinesByTermsParams(filter: FilterParams) {
 async function getDisciplinesByTerms() {
 
     return await prisma.term.findMany({
-        include:{
-            discipline:{
-                include:{
-                    teacherDiscipline:{
-                        include:{
-                            teacher:true,
-                            test:{
-                                include:{
-                                    category:true
+        include: {
+            discipline: {
+                include: {
+                    teacherDiscipline: {
+                        include: {
+                            teacher: true,
+                            test: {
+                                include: {
+                                    category: true
                                 }
                             }
                         }
@@ -110,45 +110,6 @@ async function getDisciplinesByTerms() {
             }
         }
     })
-
-    // return await prisma.term.findMany({
-    //     select: {
-    //         id: true,
-    //         number: true,
-    //         discipline: {
-    //             select: {
-    //                 id: true,
-    //                 name: true,
-    //                 teacherDiscipline: {
-    //                     select: {
-    //                         test: {
-    //                             select: {
-    //                                 name: true,
-    //                                 pdfUrl: true,
-    //                                 category: {
-    //                                     select: {
-    //                                         name: true
-    //                                     }
-    //                                 },
-    //                                 teacherDiscipline: {
-    //                                     select: {
-    //                                         teacher: {
-    //                                             select: {
-    //                                                 name: true
-    //                                             }
-    //                                         }
-    //                                     }
-    //                                 }
-    //                             }
-    //                         },
-    //                     }
-    //                 }
-    //             }
-    //         },
-    //     },
-    // })
-
-
 }
 
 async function getTestsByTeachers() {
@@ -284,14 +245,39 @@ async function getCategories() {
     })
 }
 
+async function getDisciplines() {
+    return await prisma.discipline.findMany();
+}
 
+async function countViews(testId: number) {
+    return await prisma.test.update({
+        where: {
+            id: testId
+        },
+        
+            data: {viewsCount: {
+                increment: 1
+            
+            }
+        }
 
+    })
+}
 
-
+async function findTestById(testId: number) {
+    return await prisma.test.findUnique({
+        where: {
+            id: testId
+        }
+    });
+}
 
 export default {
     getDisciplinesByTerms,
     getTestsByTeachers,
     getCategories,
-    getDisciplinesByTermsParams
+    getDisciplinesByTermsParams,
+    getDisciplines,
+    countViews,
+    findTestById
 }
